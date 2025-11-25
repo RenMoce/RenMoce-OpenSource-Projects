@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Red Discord Text Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0b0b0b;
+            --bg-panel: rgba(25,25,25,0.85);
+            --text-main: #eee;
+            --text-muted: #bbb;
+            --accent: #ff3f3f;
+            --accent-hover: #ff5555;
+            --radius: 16px;
+            --transition: 0.25s ease;
+            --blur: 12px;
+        }
+
+        /* BODY */
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0b0b0b, #1c1c1c);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 40px 16px;
+            overflow-x: hidden;
+        }
+
+        /* TITLE */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+            text-shadow: 0 0 8px var(--accent);
+        }
+
+            h1 span {
+                background: linear-gradient(90deg, #ff3f3f, #ff0000);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+        /* SUBTITLE */
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 40px;
+        }
+
+        /* CONTAINER */
+        .container {
+            width: 100%;
+            max-width: 850px;
+            background: var(--bg-panel);
+            border-radius: var(--radius);
+            backdrop-filter: blur(var(--blur));
+            box-shadow: 0 0 24px rgba(255, 63, 63,0.4);
+            padding: 40px;
+            transition: transform var(--transition);
+        }
+
+            .container:hover {
+                transform: translateY(-4px);
+            }
+
+        /* TEXTAREA */
+        #textarea {
+            width: 100%;
+            min-height: 220px;
+            border-radius: var(--radius);
+            resize: both;
+            background-color: rgba(30,0,0,0.7);
+            border: 1px solid #330000;
+            color: var(--text-muted);
+            font-family: monospace;
+            font-size: 0.9rem;
+            line-height: 1.3rem;
+            padding: 16px;
+            white-space: pre-wrap;
+            transition: border var(--transition), box-shadow var(--transition);
+        }
+
+            #textarea:focus {
+                border-color: var(--accent);
+                outline: none;
+                color: var(--text-main);
+                box-shadow: 0 0 12px var(--accent);
+                animation: pulse 1.2s infinite alternate;
+            }
+
+        /* BUTTONS */
+        button {
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .button {
+            background: var(--accent);
+            padding: 10px 24px;
+            font-size: 14px;
+            margin-top: 20px;
+            box-shadow: 0 0 8px rgba(255,0,0,0.6);
+        }
+
+            .button:hover {
+                background: var(--accent-hover);
+                transform: scale(1.05);
+                box-shadow: 0 0 18px var(--accent);
+            }
+
+        .style-button {
+            background: #220000;
+            width: 36px;
+            height: 36px;
+            margin: 4px;
+            box-shadow: 0 0 6px #550000;
+        }
+
+            .style-button:hover {
+                transform: scale(1.2);
+                box-shadow: 0 0 14px #ff3f3f;
+            }
+
+        /* SECTION TITLES */
+        .section-title {
+            color: var(--text-muted);
+            margin-top: 20px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* TOOLTIP */
+        .tooltip {
+            display: none;
+            position: absolute;
+            background-color: var(--accent);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 13px;
+            padding: 8px 14px;
+            top: 0;
+            z-index: 10;
+            white-space: nowrap;
+            box-shadow: 0 2px 12px rgba(255,0,0,0.5);
+        }
+
+        /* FOOTER */
+        .footer {
+            color: var(--text-muted);
+            margin-top: 30px;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        /* ANSI CLASSES */
+        .ansi-1 {
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .ansi-4 {
+            font-weight: 500;
+            text-decoration: underline;
+        }
+
+        .ansi-30 {
+            color: #4f545c;
+        }
+
+        .ansi-31 {
+            color: #dc322f;
+        }
+
+        .ansi-32 {
+            color: #859900;
+        }
+
+        .ansi-33 {
+            color: #b58900;
+        }
+
+        .ansi-34 {
+            color: #268bd2;
+        }
+
+        .ansi-35 {
+            color: #d33682;
+        }
+
+        .ansi-36 {
+            color: #2aa198;
+        }
+
+        .ansi-37 {
+            color: #ffffff;
+        }
+
+        .ansi-30-bg {
+            background-color: #4f545c;
+        }
+
+        .ansi-31-bg {
+            background-color: #dc322f;
+        }
+
+        .ansi-32-bg {
+            background-color: #859900;
+        }
+
+        .ansi-33-bg {
+            background-color: #b58900;
+        }
+
+        .ansi-34-bg {
+            background-color: #268bd2;
+        }
+
+        .ansi-35-bg {
+            background-color: #d33682;
+        }
+
+        .ansi-36-bg {
+            background-color: #2aa198;
+        }
+
+        .ansi-37-bg {
+            background-color: #ffffff;
+        }
+
+        .ansi-40 {
+            background-color: #002b36;
+        }
+
+        .ansi-41 {
+            background-color: #cb4b16;
+        }
+
+        .ansi-42 {
+            background-color: #586e75;
+        }
+
+        .ansi-43 {
+            background-color: #657b83;
+        }
+
+        .ansi-44 {
+            background-color: #839496;
+        }
+
+        .ansi-45 {
+            background-color: #6c71c4;
+        }
+
+        .ansi-46 {
+            background-color: #93a1a1;
+        }
+
+        .ansi-47 {
+            background-color: #fdf6e3;
+        }
+
+        /* ANIMATIONS */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 12px var(--accent);
+            }
+
+            100% {
+                box-shadow: 0 0 24px var(--accent-hover);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1><span>Cyber</span> Discord Text Generator</h1>
+    <div class="subtitle">Red & Black Futuristic Version</div>
+
+    <div class="container">
+        <button data-ansi="0" class="button style-button">R</button>
+        <button data-ansi="1" class="button style-button ansi-1">B</button>
+        <button data-ansi="4" class="button style-button ansi-4">U</button>
+
+        <div class="section-title">Foreground</div>
+        <div>
+            <button data-ansi="30" class="button style-button ansi-30-bg"></button>
+            <button data-ansi="31" class="button style-button ansi-31-bg"></button>
+            <button data-ansi="32" class="button style-button ansi-32-bg"></button>
+            <button data-ansi="33" class="button style-button ansi-33-bg"></button>
+            <button data-ansi="34" class="button style-button ansi-34-bg"></button>
+            <button data-ansi="35" class="button style-button ansi-35-bg"></button>
+            <button data-ansi="36" class="button style-button ansi-36-bg"></button>
+            <button data-ansi="37" class="button style-button ansi-37-bg"></button>
+        </div>
+
+        <div class="section-title">Background</div>
+        <div>
+            <button data-ansi="40" class="button style-button ansi-40"></button>
+            <button data-ansi="41" class="button style-button ansi-41"></button>
+            <button data-ansi="42" class="button style-button ansi-42"></button>
+            <button data-ansi="43" class="button style-button ansi-43"></button>
+            <button data-ansi="44" class="button style-button ansi-44"></button>
+            <button data-ansi="45" class="button style-button ansi-45"></button>
+            <button data-ansi="46" class="button style-button ansi-46"></button>
+            <button data-ansi="47" class="button style-button ansi-47"></button>
+        </div>
+
+        <div id="textarea" contenteditable="true">
+            Enter your text here...
+        </div>
+
+        <br>
+        <button class="button copy">Copy Discord Formatted Text</button>
+    </div>
+
+    <div class="footer">
+        © 2025 RenMoce Cyber Edition | Original by Rebane
+    </div>
+
+    <div class="tooltip">Tooltip</div>
+
+    <script>
+        const textarea = document.querySelector("#textarea");
+        const copybtn = document.querySelector(".button.copy");
+        const tooltip = document.querySelector(".tooltip");
+
+        const tooltipTexts = {
+            "30": "Dark Gray (33%)",
+            "31": "Red",
+            "32": "Yellowish Green",
+            "33": "Gold",
+            "34": "Light Blue",
+            "35": "Pink",
+            "36": "Teal",
+            "37": "White",
+            "40": "Blueish Black",
+            "41": "Rust Brown",
+            "42": "Gray (40%)",
+            "43": "Gray (45%)",
+            "44": "Light Gray (55%)",
+            "45": "Blurple",
+            "46": "Light Gray (60%)",
+            "47": "Cream White",
+        };
+
+        // Escape pasted HTML
+        textarea.oninput = () => {
+            const base = textarea.innerHTML.replace(/<(\/?(br|span|span class="ansi-[0-9]*"))>/g, "[$1]");
+            if (base.includes("<") || base.includes(">")) textarea.innerHTML = base.replace(/<.*?>/g, "").replace(/[<>]/g, "").replace(/\[(\/?(br|span|span class="ansi-[0-9]*"))\]/g, "<$1>");
+        };
+
+        // Enter = line break
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Enter') {
+                document.execCommand('insertLineBreak')
+                event.preventDefault()
+            }
+        });
+
+        document.querySelectorAll(".style-button").forEach((btn) => {
+            btn.onclick = () => {
+                if (!btn.dataset.ansi) return;
+                const selection = window.getSelection();
+                const text = selection.toString();
+                const span = document.createElement("span");
+                span.innerText = text;
+                span.classList.add(`ansi-${btn.dataset.ansi}`);
+                const range = selection.getRangeAt(0);
+                range.deleteContents();
+                range.insertNode(span);
+                range.selectNodeContents(span);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            };
+            btn.onmouseenter = () => {
+                if (!(btn.dataset.ansi > 4)) return;
+                const rect = btn.getBoundingClientRect();
+                tooltip.style.display = "block";
+                tooltip.innerText = tooltipTexts[btn.dataset.ansi];
+                tooltip.style.top = `${rect.top - 36}px`;
+                tooltip.style.left = `${rect.left - tooltip.clientWidth / 2 + btn.clientWidth / 2}px`;
+            };
+            btn.onmouseleave = () => {
+                tooltip.style.display = "none";
+            };
+        });
+
+        function nodesToANSI(nodes, states) {
+            let text = ""
+            for (const node of nodes) {
+                if (node.nodeType === 3) {
+                    text += node.textContent;
+                    continue;
+                }
+                if (node.nodeName === "BR") {
+                    text += "\n";
+                    continue;
+                }
+                const ansiCode = +(node.className.split("-")[1]);
+                const newState = Object.assign({}, states.at(-1));
+                if (ansiCode < 30) newState.st = ansiCode;
+                if (ansiCode >= 30 && ansiCode < 40) newState.fg = ansiCode;
+                if (ansiCode >= 40) newState.bg = ansiCode;
+                states.push(newState)
+                text += `\x1b[${newState.st};${(ansiCode >= 40) ? newState.bg : newState.fg}m`;
+                text += nodesToANSI(node.childNodes, states);
+                states.pop()
+                text += `\x1b[0m`;
+                if (states.at(-1).fg !== 2) text += `\x1b[${states.at(-1).st};${states.at(-1).fg}m`;
+                if (states.at(-1).bg !== 2) text += `\x1b[${states.at(-1).st};${states.at(-1).bg}m`;
+            }
+            return text;
+        }
+
+        let copyCount = 0;
+        let copyTimeout = null;
+
+        copybtn.onclick = () => {
+            const toCopy = "```ansi\n" + nodesToANSI(textarea.childNodes, [{ fg: 2, bg: 2, st: 2 }]) + "\n```";
+            navigator.clipboard.writeText(toCopy).then(() => {
+                if (copyTimeout) clearTimeout(copyTimeout);
+                const funnyCopyMessages = ["Copied!", "Double Copy!", "Triple Copy!", "Dominating!!", "Rampage!!", "Mega Copy!!", "Unstoppable!!", "Wicked Sick!!", "Monster Copy!!!", "GODLIKE!!!", "BEYOND GODLIKE!!!!"];
+                copybtn.style.backgroundColor = (copyCount <= 8) ? "#3BA55D" : "#ED4245";
+                copybtn.innerText = funnyCopyMessages[Math.min(copyCount, funnyCopyMessages.length - 1)];
+                copyCount = Math.min(11, copyCount + 1);
+                copyTimeout = setTimeout(() => {
+                    copyCount = 0;
+                    copybtn.style.backgroundColor = null;
+                    copybtn.innerText = "Copy Discord Formatted Text";
+                }, 2000)
+            }, (err) => {
+                alert("Copying failed, try manually copying:");
+                alert(toCopy);
+            });
+        }
+    </script>
+
+</body>
+</html>
