@@ -1,37 +1,33 @@
-RenMoce OpenSource Projects
+# RenMoce OpenSource Projects
 
-A collection of freely accessible open-source projects developed under the RenMoce brand.
-Our goal is to provide simple, transparent, and reliable tools for developers, communities, and game server owners.
+**RenMoce OpenSource Projects** is a collection of freely available open-source tools, utilities, and systems developed under the **RenMoce** brand.  
+Our mission is to create simple, transparent, and reliable solutions for communities, developers, and server owners.
 
-⭐ Features
+## ⭐ Features
+- Fully open-source
+- Free to use and modify
+- Beginner-friendly structure
+- Lightweight and stable
+- Community-driven improvements
 
-Completely open-source
+## 📂 Projects
+Each project is placed in its own folder, including documentation and setup instructions.  
+More projects will be added over time as the RenMoce ecosystem grows.
 
-Free to use, learn from, and modify
+## 📜 License
+All content is open-source under the included license.  
+**Note:** Any private credentials (tokens, API keys, configs) are strictly forbidden to redistribute or reuse.
 
-Lightweight and beginner-friendly
+## 🤝 Contributing
+Contributions, fixes, and ideas are always welcome.  
+If you'd like to help, feel free to create an Issue or open a Pull Request.
 
-Community-driven improvements
+---
 
-Built with focus on clarity and stability
+## 🌐 Official Links
+**Website:** https://www.renmoce.eu  
+**Team:** RenMoce Team  
 
-📂 Included Projects
+---
 
-This repository contains various tools, utilities, and systems created by the RenMoce team.
-Each project has its own folder with documentation and setup instructions.
-
-📜 License & Usage
-
-All projects are released as open-source under the included license.
-However, any private tokens, API keys, credentials, or protected configuration files must not be redistributed, reused, or shared without explicit permission.
-
-🤝 Contributing
-
-We welcome community contributions!
-If you’d like to improve or extend any project, feel free to open an issue or submit a pull request.
-
-🌐 Official Links
-
-🔗 Website: https://www.renmoce.eu
-
-🔗 Community: RenMoce Team
+### **Thank you for supporting the RenMoce OpenSource initiative.**
